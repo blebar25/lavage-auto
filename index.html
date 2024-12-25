@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lav Express - Votre laverie automatique 7j/7</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="help-section">
+                <p>Besoin d'aide ?</p>
+                <a href="tel:+33176350611"><i class="fas fa-phone"></i> +33 01 76 35 06 11</a>
+                <a href="mailto:lavexpress9@gmail.com"><i class="fas fa-envelope"></i> lavexpress9@gmail.com</a>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Lav Express</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#tarifs">Tarifs</a>
+                <a href="#locations">Nos Laveries</a>
+                <a href="#entrepreneurs">Ouvrir une Laverie</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="accueil" class="hero">
+            <div class="hero-content">
+                <h1>Lav Express</h1>
+                <p class="baseline">Votre laverie automatique, ouverte de 6H00 à 22H00, 7J/7</p>
+                <a href="#tarifs" class="cta-button">Voir nos tarifs</a>
+            </div>
+        </section>
+
+        <section id="tarifs" class="pricing">
+            <div class="container">
+                <h2>Nos Tarifs</h2>
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>Machine 7kg</h3>
+                        <p class="price">5€</p>
+                        <p>Idéal pour les petites charges</p>
+                    </div>
+                    <div class="price-card">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>Machine 11kg</h3>
+                        <p class="price">7,80€</p>
+                        <p>Pour les charges moyennes</p>
+                    </div>
+                    <div class="price-card">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>Machine 18kg</h3>
+                        <p class="price">12,90€</p>
+                        <p>Pour les grosses charges</p>
+                    </div>
+                    <div class="price-card">
+                        <i class="fas fa-wind"></i>
+                        <h3>Séchoir</h3>
+                        <p class="price">1,50€</p>
+                        <p>Les 9 minutes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="locations" class="locations">
+            <div class="container">
+                <h2>Nos Laveries</h2>
+                <div class="locations-content">
+                    <div id="map" class="map-container"></div>
+                    <div class="locations-list">
+                        <div class="location">
+                            <h4>Saint-Denis</h4>
+                            <p>30 rue Pinel, Saint Denis, 93200</p>
+                        </div>
+                        <div class="location">
+                            <h4>Paris Montmartre</h4>
+                            <p>27 rue Ramey, Paris, 75018</p>
+                        </div>
+                        <div class="location">
+                            <h4>Paris Canal Saint-Martin</h4>
+                            <p>20 rue de Lancry, Paris, 75010</p>
+                        </div>
+                        <div class="location">
+                            <h4>Paris Popincourt</h4>
+                            <p>12 rue Popincourt, Paris, 75011</p>
+                        </div>
+                        <div class="location">
+                            <h4>Marseille Thiers</h4>
+                            <p>3 rue Thiers, Marseille, 13001</p>
+                        </div>
+                        <div class="location">
+                            <h4>Paris Gravilliers</h4>
+                            <p>52 rue des Gravilliers, Paris, 75004</p>
+                        </div>
+                        <div class="location">
+                            <h4>Paris Flandre</h4>
+                            <p>122 avenue de Flandre, Paris, 75019</p>
+                        </div>
+                        <div class="location">
+                            <h4>Marseille Fédération</h4>
+                            <p>14 boulevard de la Fédération, Marseille, 13004</p>
+                        </div>
+                        <div class="location">
+                            <h4>Lille Douai</h4>
+                            <p>3 rue de Douai, Lille, 59000</p>
+                        </div>
+                        <div class="location">
+                            <h4>Villeneuve d'Ascq Hôtel de Ville</h4>
+                            <p>61 place de l'Hôtel de Ville, Villeneuve d'Ascq, 59650</p>
+                        </div>
+                        <div class="location">
+                            <h4>Tourcoing Victoire</h4>
+                            <p>45 Place de la Victoire, Tourcoing, 59200</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="entrepreneurs" class="entrepreneurs">
+            <div class="container">
+                <h2>Vous souhaitez ouvrir une laverie ?</h2>
+                <p>Rejoignez le réseau Lav Express et bénéficiez de notre expertise dans le domaine des laveries automatiques.</p>
+                <a href="https://market-j.com" target="_blank" class="cta-button">En savoir plus</a>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <h3>Téléphone</h3>
+                            <p>+33 01 76 35 06 11</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p>lavexpress9@gmail.com</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <h3>Horaires</h3>
+                            <p>Ouvert de 6H00 à 22H00</p>
+                            <p>7 jours sur 7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Lav Express</h3>
+                    <p>Votre laverie automatique de confiance</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="#locations">Nos Laveries</a></li>
+                        <li><a href="#entrepreneurs">Ouvrir une Laverie</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Téléphone : +33 01 76 35 06 11</p>
+                    <p>Email : lavexpress9@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Lav Express. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
