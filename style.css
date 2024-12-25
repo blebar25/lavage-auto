@@ -553,6 +553,60 @@
     }
 }
 
+/* Style pour les fenêtres d'info Google Maps */
+.gm-style .gm-style-iw-c {
+    padding: 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 7px 1px rgba(0,0,0,0.1) !important;
+}
+
+.info-window {
+    padding: 5px;
+}
+
+.info-window h3 {
+    color: var(--primary-color);
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+}
+
+.info-window p {
+    color: var(--text-color);
+    margin: 0 0 12px 0;
+    font-size: 0.9rem;
+}
+
+.directions-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    transition: all 0.3s ease;
+}
+
+.directions-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.directions-link i {
+    font-size: 1rem;
+}
+
+/* Masquer les éléments par défaut de Google Maps */
+.gm-style-cc {
+    display: none;
+}
+
+.gm-style a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+}
+
 /* Root Styles */
 :root {
     --primary-color: #2C3E50;
@@ -848,97 +902,6 @@ body {
     background: var(--secondary-color);
 }
 
-/* Contact Section */
-.contact {
-    padding: 5rem 1rem;
-}
-
-.contact-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.contact-info {
-    display: grid;
-    gap: 1.5rem;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.info-item i {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-}
-
-.map-placeholder {
-    background: #ddd;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-}
-
-.hours-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.hours-card {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.hours-card h3 {
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-.hours-card .hours {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    margin: 1.5rem 0;
-}
-
-.info-box {
-    background: var(--light-gray);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-top: 1.5rem;
-}
-
-.info-box p {
-    margin: 0.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.info-box i {
-    color: var(--primary-color);
-}
-
-.payment-icons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-}
-
 /* Galerie */
 .gallery {
     padding: 5rem 1rem;
@@ -984,67 +947,79 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--text-color);
+    background-color: var(--primary-color);
     color: var(--white);
-    padding: 3rem 1rem 1rem;
+    padding: 4rem 0 2rem;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-bottom: 3rem;
 }
 
 .footer-section h3 {
-    margin-bottom: 1rem;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
 }
 
-.footer-section a {
-    color: var(--white);
-    text-decoration: none;
-    display: block;
+.footer-section p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
     margin-bottom: 0.5rem;
 }
 
-.social-links {
-    display: flex;
-    gap: 1rem;
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.social-links a {
-    font-size: 1.5rem;
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--white);
 }
 
 .footer-bottom {
     text-align: center;
-    margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive Design */
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
     }
 
-    .mobile-menu {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--text-color);
-        cursor: pointer;
+    .footer-section {
+        margin-bottom: 2rem;
     }
 
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .price-card.featured {
-        transform: none;
+    .footer {
+        padding: 3rem 0 1.5rem;
     }
 }
 
@@ -1393,23 +1368,28 @@ body {
 
 /* Entrepreneurs Section */
 .entrepreneurs {
-    padding: 5rem 1rem;
+    padding: 5rem 0;
+    background-color: var(--white);
+}
+
+.entrepreneurs .container {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('path/to/entrepreneur-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    color: var(--white);
+    padding: 0 1rem;
 }
 
 .entrepreneurs h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
     font-size: 2.5rem;
-    margin-bottom: 1rem;
 }
 
 .entrepreneurs p {
-    font-size: 1.2rem;
+    color: var(--text-color);
     margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .entrepreneurs .cta-button {
@@ -1418,13 +1398,13 @@ body {
     gap: 0.5rem;
     padding: 1rem 2rem;
     font-size: 1.1rem;
-    background: var(--white);
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--white);
 }
 
 .entrepreneurs .cta-button:hover {
-    background: var(--primary-color);
-    color: var(--white);
+    background: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 /* Responsive Adjustments */

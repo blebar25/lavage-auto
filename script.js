@@ -13,25 +13,136 @@ const laundries = [
     { name: "Tourcoing", address: "45 Place de la Victoire, Tourcoing, 59200", lat: 50.7236, lng: 3.1590 }
 ];
 
+// Style personnalisé pour la carte
+const mapStyle = [
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#e9e9e9"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#f5f5f5"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "lightness": 29
+            },
+            {
+                "weight": 0.2
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "lightness": 18
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#f5f5f5"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#dedede"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    }
+];
+
 // Initialisation de la carte Google Maps
 function initMap() {
-    const france = { lat: 46.8534, lng: 2.3488 };
+    // Centre de la France
+    const france = { lat: 46.603354, lng: 1.888334 };
+    
+    // Créer la carte
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 6,
         center: france,
-        styles: [
-            {
-                featureType: "all",
-                elementType: "geometry",
-                stylers: [{ color: "#f5f5f5" }]
-            },
-            {
-                featureType: "water",
-                elementType: "geometry",
-                stylers: [{ color: "#c9c9c9" }]
-            }
-        ]
+        styles: mapStyle,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        }
     });
+
+    // Style personnalisé pour les marqueurs
+    const markerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: "#3498DB",
+        fillOpacity: 1,
+        strokeWeight: 0,
+        scale: 10
+    };
 
     // Ajouter les marqueurs pour chaque laverie
     laundries.forEach(laundry => {
@@ -39,22 +150,58 @@ function initMap() {
             position: { lat: laundry.lat, lng: laundry.lng },
             map: map,
             title: laundry.name,
+            icon: markerIcon,
             animation: google.maps.Animation.DROP
         });
 
+        // Créer une fenêtre d'info personnalisée
         const infowindow = new google.maps.InfoWindow({
             content: `
                 <div class="info-window">
                     <h3>${laundry.name}</h3>
                     <p>${laundry.address}</p>
                     <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(laundry.address)}" 
-                       target="_blank">Itinéraire</a>
-                </div>`
+                       target="_blank" class="directions-link">
+                       <i class="fas fa-directions"></i> Itinéraire
+                    </a>
+                </div>`,
+            maxWidth: 300
         });
 
+        // Ajouter les événements pour les marqueurs
         marker.addListener("click", () => {
             infowindow.open(map, marker);
         });
+
+        marker.addListener("mouseover", () => {
+            marker.setIcon({
+                ...markerIcon,
+                fillColor: "#2980b9",
+                scale: 12
+            });
+        });
+
+        marker.addListener("mouseout", () => {
+            marker.setIcon(markerIcon);
+        });
+
+        // Lier le marqueur à l'élément de la liste
+        const locationElement = document.querySelector(`.location a[href*="${encodeURIComponent(laundry.address)}"]`);
+        if (locationElement) {
+            locationElement.addEventListener("mouseenter", () => {
+                marker.setIcon({
+                    ...markerIcon,
+                    fillColor: "#2980b9",
+                    scale: 12
+                });
+                infowindow.open(map, marker);
+            });
+
+            locationElement.addEventListener("mouseleave", () => {
+                marker.setIcon(markerIcon);
+                setTimeout(() => infowindow.close(), 1000);
+            });
+        }
     });
 }
 
