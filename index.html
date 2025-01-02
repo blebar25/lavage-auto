@@ -341,9 +341,6 @@
         <section id="locations" class="locations">
         <div class="container">
             <h2>Nos Laveries</h2>
-            <div class="map-container">
-                <div id="map" style="width: 100%; height: 100%;"></div>
-            </div>
             <div class="locations-grid">
                 <!-- Saint-Denis -->
                 <div class="location-card">
@@ -685,6 +682,21 @@
     </div>
 </div>
             </div> <!-- Fermeture de locations-grid -->
+            
+            <h3 style="margin-top: 40px; margin-bottom: 20px;">Carte OpenStreetMap</h3>
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+            </div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 20px;">Carte Google Maps</h3>
+            <div class="map-container">
+                <div id="googleMap" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        <h4 style="margin-bottom: 10px;">Clé API Google Maps requise</h4>
+                        <p>Pour afficher la carte Google Maps, vous devez obtenir une clé API dans la console Google Cloud.</p>
+                    </div>
+                </div>
+            </div>
         </div> <!-- Fermeture de container -->
     </section> <!-- Fermeture de locations -->
 
@@ -813,6 +825,62 @@
             
             marker.bindPopup(popup);
         });
+
+        // Fonction pour initialiser Google Maps
+        function initGoogleMap() {
+            const mapOptions = {
+                zoom: 6,
+                center: { lat: 46.603354, lng: 1.888334 },
+                styles: [
+                    {
+                        featureType: "all",
+                        elementType: "geometry.fill",
+                        stylers: [{ weight: "2.00" }]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#9c9c9c" }]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "labels.text",
+                        stylers: [{ lightness: "25" }]
+                    }
+                ]
+            };
+
+            const googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+
+            locations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: { lat: location.position[0], lng: location.position[1] },
+                    map: googleMap,
+                    title: location.name,
+                    animation: google.maps.Animation.DROP
+                });
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="padding: 15px; min-width: 200px;">
+                            <h3 style="margin: 0 0 10px 0; color: #1a73e8; font-family: 'Poppins', sans-serif;">${location.name}</h3>
+                            <p style="margin: 0 0 10px 0; color: #5f6368; font-family: 'Poppins', sans-serif;">${location.address}</p>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}" 
+                               style="display: inline-flex; align-items: center; padding: 8px 16px; background: #1a73e8; color: white; 
+                               text-decoration: none; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 14px;" 
+                               target="_blank">
+                               <i class="fas fa-directions" style="margin-right: 8px;"></i>
+                               Itinéraire
+                            </a>
+                        </div>
+                    `
+                });
+
+                marker.addListener('click', () => {
+                    infowindow.open(googleMap, marker);
+                });
+            });
+        }
     </script>
 </body>
 </html>
