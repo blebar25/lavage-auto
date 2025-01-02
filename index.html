@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBuOWiblHWoXjSur8OU-p55vkRrZb5PjU&callback=initGoogleMap" async defer></script>
     <style>
         /* Styles existants ... */
         
@@ -690,13 +691,149 @@
 
             <h3 style="margin-top: 40px; margin-bottom: 20px;">Carte Google Maps</h3>
             <div class="map-container">
-                <div id="googleMap" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
-                    <div style="text-align: center; padding: 20px; color: #666;">
-                        <h4 style="margin-bottom: 10px;">Clé API Google Maps requise</h4>
-                        <p>Pour afficher la carte Google Maps, vous devez obtenir une clé API dans la console Google Cloud.</p>
-                    </div>
-                </div>
+                <div id="googleMap" style="width: 100%; height: 100%;"></div>
             </div>
+
+            <script>
+                // Fonction pour le carrousel
+                function moveCarousel(button, direction) {
+                    const carousel = button.closest('.location-carousel');
+                    const items = carousel.querySelectorAll('.carousel-item');
+                    const indicators = carousel.querySelectorAll('.carousel-indicator');
+                    let activeIndex = Array.from(items).findIndex(item => item.classList.contains('active'));
+                    
+                    items[activeIndex].classList.remove('active');
+                    indicators[activeIndex].classList.remove('active');
+                    
+                    activeIndex = (activeIndex + direction + items.length) % items.length;
+                    
+                    items[activeIndex].classList.add('active');
+                    indicators[activeIndex].classList.add('active');
+                }
+
+                // Initialisation de la carte
+                const map = L.map('map', {
+                    zoomControl: true,
+                    scrollWheelZoom: true
+                }).setView([46.603354, 1.888334], 6);
+
+                // Utilisation d'un style de carte similaire à Google Maps
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                }).addTo(map);
+
+                const locations = [
+                    { name: 'Saint-Denis', position: [48.936181, 2.354990], address: '30 rue Pinel, Saint Denis, 93200' },
+                    { name: 'Paris Montmartre', position: [48.887371, 2.347688], address: '27 rue Ramey, Paris, 75018' },
+                    { name: 'Paris Canal Saint-Martin', position: [48.869772, 2.361752], address: '20 rue de Lancry, Paris, 75010' },
+                    { name: 'Paris Popincourt', position: [48.858844, 2.371511], address: '12 rue Popincourt, Paris, 75011' },
+                    { name: 'Marseille Thiers', position: [43.297982, 5.384415], address: '3 rue Thiers, Marseille, 13001' },
+                    { name: 'Paris Gravilliers', position: [48.864072, 2.353792], address: '52 rue des Gravilliers, Paris, 75004' },
+                    { name: 'Paris Flandre', position: [48.889509, 2.374987], address: '122 avenue de Flandre, Paris, 75019' },
+                    { name: 'Marseille Fédération', position: [43.289497, 5.396261], address: '14 boulevard de la Fédération, Marseille, 13004' },
+                    { name: 'Lille Douai', position: [50.636565, 3.059998], address: '3 rue de Douai, Lille, 59000' },
+                    { name: "Villeneuve d'Ascq", position: [50.619904, 3.130120], address: "61 place de l'Hôtel de Ville, Villeneuve d'Ascq, 59650" },
+                    { name: 'Tourcoing', position: [50.723271, 3.161013], address: '45 Place de la Victoire, Tourcoing, 59200' }
+                ];
+
+                // Icône personnalisée pour les marqueurs
+                const customIcon = L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+
+                locations.forEach(location => {
+                    const marker = L.marker(location.position, { icon: customIcon }).addTo(map);
+                    
+                    const popupContent = `
+                        <div class="popup-content">
+                            <div class="popup-header">
+                                <h3>${location.name}</h3>
+                            </div>
+                            <div class="popup-body">
+                                <p class="popup-address">${location.address}</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}" 
+                                   class="popup-button" 
+                                   target="_blank" 
+                                   onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}', '_blank'); return false;">
+                                   <i class="fas fa-directions"></i>
+                                   Itinéraire
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const popup = L.popup({
+                        maxWidth: 300,
+                        minWidth: 250,
+                        className: 'custom-popup'
+                    }).setContent(popupContent);
+                    
+                    marker.bindPopup(popup);
+                });
+
+                // Fonction pour initialiser Google Maps
+                function initGoogleMap() {
+                    const mapOptions = {
+                        zoom: 6,
+                        center: { lat: 46.603354, lng: 1.888334 },
+                        styles: [
+                            {
+                                featureType: "all",
+                                elementType: "geometry.fill",
+                                stylers: [{ weight: "2.00" }]
+                            },
+                            {
+                                featureType: "all",
+                                elementType: "geometry.stroke",
+                                stylers: [{ color: "#9c9c9c" }]
+                            },
+                            {
+                                featureType: "all",
+                                elementType: "labels.text",
+                                stylers: [{ lightness: "25" }]
+                            }
+                        ]
+                    };
+
+                    const googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+
+                    locations.forEach(location => {
+                        const marker = new google.maps.Marker({
+                            position: { lat: location.position[0], lng: location.position[1] },
+                            map: googleMap,
+                            title: location.name,
+                            animation: google.maps.Animation.DROP
+                        });
+
+                        const infowindow = new google.maps.InfoWindow({
+                            content: `
+                                <div style="padding: 15px; min-width: 200px;">
+                                    <h3 style="margin: 0 0 10px 0; color: #1a73e8; font-family: 'Poppins', sans-serif;">${location.name}</h3>
+                                    <p style="margin: 0 0 10px 0; color: #5f6368; font-family: 'Poppins', sans-serif;">${location.address}</p>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}" 
+                                       style="display: inline-flex; align-items: center; padding: 8px 16px; background: #1a73e8; color: white; 
+                                       text-decoration: none; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 14px;" 
+                                       target="_blank">
+                                       <i class="fas fa-directions" style="margin-right: 8px;"></i>
+                                       Itinéraire
+                                    </a>
+                                </div>
+                            `
+                        });
+
+                        marker.addListener('click', () => {
+                            infowindow.open(googleMap, marker);
+                        });
+                    });
+                }
+            </script>
         </div> <!-- Fermeture de container -->
     </section> <!-- Fermeture de locations -->
 
@@ -742,145 +879,5 @@
         </div>
     </footer>
 
-    <script>
-        // Fonction pour le carrousel
-        function moveCarousel(button, direction) {
-            const carousel = button.closest('.location-carousel');
-            const items = carousel.querySelectorAll('.carousel-item');
-            const indicators = carousel.querySelectorAll('.carousel-indicator');
-            let activeIndex = Array.from(items).findIndex(item => item.classList.contains('active'));
-            
-            items[activeIndex].classList.remove('active');
-            indicators[activeIndex].classList.remove('active');
-            
-            activeIndex = (activeIndex + direction + items.length) % items.length;
-            
-            items[activeIndex].classList.add('active');
-            indicators[activeIndex].classList.add('active');
-        }
-
-        // Initialisation de la carte
-        const map = L.map('map', {
-            zoomControl: true,
-            scrollWheelZoom: true
-        }).setView([46.603354, 1.888334], 6);
-
-        // Utilisation d'un style de carte similaire à Google Maps
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(map);
-
-        const locations = [
-            { name: 'Saint-Denis', position: [48.936181, 2.354990], address: '30 rue Pinel, Saint Denis, 93200' },
-            { name: 'Paris Montmartre', position: [48.887371, 2.347688], address: '27 rue Ramey, Paris, 75018' },
-            { name: 'Paris Canal Saint-Martin', position: [48.869772, 2.361752], address: '20 rue de Lancry, Paris, 75010' },
-            { name: 'Paris Popincourt', position: [48.858844, 2.371511], address: '12 rue Popincourt, Paris, 75011' },
-            { name: 'Marseille Thiers', position: [43.297982, 5.384415], address: '3 rue Thiers, Marseille, 13001' },
-            { name: 'Paris Gravilliers', position: [48.864072, 2.353792], address: '52 rue des Gravilliers, Paris, 75004' },
-            { name: 'Paris Flandre', position: [48.889509, 2.374987], address: '122 avenue de Flandre, Paris, 75019' },
-            { name: 'Marseille Fédération', position: [43.289497, 5.396261], address: '14 boulevard de la Fédération, Marseille, 13004' },
-            { name: 'Lille Douai', position: [50.636565, 3.059998], address: '3 rue de Douai, Lille, 59000' },
-            { name: "Villeneuve d'Ascq", position: [50.619904, 3.130120], address: "61 place de l'Hôtel de Ville, Villeneuve d'Ascq, 59650" },
-            { name: 'Tourcoing', position: [50.723271, 3.161013], address: '45 Place de la Victoire, Tourcoing, 59200' }
-        ];
-
-        // Icône personnalisée pour les marqueurs
-        const customIcon = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        locations.forEach(location => {
-            const marker = L.marker(location.position, { icon: customIcon }).addTo(map);
-            
-            const popupContent = `
-                <div class="popup-content">
-                    <div class="popup-header">
-                        <h3>${location.name}</h3>
-                    </div>
-                    <div class="popup-body">
-                        <p class="popup-address">${location.address}</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}" 
-                           class="popup-button" 
-                           target="_blank" 
-                           onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}', '_blank'); return false;">
-                           <i class="fas fa-directions"></i>
-                           Itinéraire
-                        </a>
-                    </div>
-                </div>
-            `;
-            
-            const popup = L.popup({
-                maxWidth: 300,
-                minWidth: 250,
-                className: 'custom-popup'
-            }).setContent(popupContent);
-            
-            marker.bindPopup(popup);
-        });
-
-        // Fonction pour initialiser Google Maps
-        function initGoogleMap() {
-            const mapOptions = {
-                zoom: 6,
-                center: { lat: 46.603354, lng: 1.888334 },
-                styles: [
-                    {
-                        featureType: "all",
-                        elementType: "geometry.fill",
-                        stylers: [{ weight: "2.00" }]
-                    },
-                    {
-                        featureType: "all",
-                        elementType: "geometry.stroke",
-                        stylers: [{ color: "#9c9c9c" }]
-                    },
-                    {
-                        featureType: "all",
-                        elementType: "labels.text",
-                        stylers: [{ lightness: "25" }]
-                    }
-                ]
-            };
-
-            const googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-
-            locations.forEach(location => {
-                const marker = new google.maps.Marker({
-                    position: { lat: location.position[0], lng: location.position[1] },
-                    map: googleMap,
-                    title: location.name,
-                    animation: google.maps.Animation.DROP
-                });
-
-                const infowindow = new google.maps.InfoWindow({
-                    content: `
-                        <div style="padding: 15px; min-width: 200px;">
-                            <h3 style="margin: 0 0 10px 0; color: #1a73e8; font-family: 'Poppins', sans-serif;">${location.name}</h3>
-                            <p style="margin: 0 0 10px 0; color: #5f6368; font-family: 'Poppins', sans-serif;">${location.address}</p>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.address)}" 
-                               style="display: inline-flex; align-items: center; padding: 8px 16px; background: #1a73e8; color: white; 
-                               text-decoration: none; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 14px;" 
-                               target="_blank">
-                               <i class="fas fa-directions" style="margin-right: 8px;"></i>
-                               Itinéraire
-                            </a>
-                        </div>
-                    `
-                });
-
-                marker.addListener('click', () => {
-                    infowindow.open(googleMap, marker);
-                });
-            });
-        }
-    </script>
 </body>
 </html>
