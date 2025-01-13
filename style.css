@@ -1570,100 +1570,156 @@ main {
 
 /* Entrepreneurs Section */
 .entrepreneurs {
-    padding: 5rem 0;
-    background-color: var(--white);
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, var(--light-bg), white);
 }
 
 .entrepreneurs .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
     text-align: center;
-    padding: 0 1rem;
 }
 
 .entrepreneurs h2 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
     font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
 }
 
-.entrepreneurs p {
+.entrepreneurs .section-intro {
+    font-size: 1.2rem;
     color: var(--text-color);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 4rem;
     line-height: 1.6;
 }
 
-.entrepreneurs .cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
     background: var(--primary-color);
-    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 1;
 }
 
-.entrepreneurs .cta-button:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
+.feature-card h3 {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
-.price-card.centered {
-    text-align: center;
+.feature-card p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
 }
 
-.entrepreneurs.highlight {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin: 2rem 0;
-}
-
-.cta-container {
+.cta-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
-.social-button.linkedin {
-    background-color: #0077b5;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
+.cta-button {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.social-button.linkedin:hover {
-    background-color: #006396;
+.cta-button.primary {
+    background: var(--primary-color);
+    color: white;
 }
 
-/* Responsive Adjustments */
+.cta-button.primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.cta-button.secondary {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.cta-button.secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.cta-button.linkedin {
+    background: #0077b5;
+    color: white;
+}
+
+.cta-button.linkedin:hover {
+    background: #006396;
+    transform: translateY(-2px);
+}
+
+.cta-button i {
+    font-size: 1.2rem;
+}
+
 @media (max-width: 768px) {
-    .help-section {
+    .entrepreneurs {
+        padding: 4rem 0;
+    }
+
+    .entrepreneurs h2 {
+        font-size: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .cta-buttons {
         flex-direction: column;
-        gap: 0.5rem;
-        align-items: flex-start;
     }
 
-    .location-images {
-        grid-template-columns: 1fr;
-    }
-
-    .location-images img {
-        height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .location-images {
-        grid-template-columns: 1fr;
+    .cta-button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
