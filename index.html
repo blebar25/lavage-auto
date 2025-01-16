@@ -140,24 +140,66 @@
             font-size: 0.95rem;
         }
 
-        .direction-link {
+        .direction-button {
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            padding: 0.5rem 1rem;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .direction-link:hover {
-            background: #0056b3;
+        .direction-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #1557b0, #1a73e8);
         }
 
-        .direction-link i {
-            margin-right: 0.5rem;
+        .direction-button i {
+            font-size: 18px;
+        }
+
+        .custom-popup .leaflet-popup-content-wrapper {
+            background: white;
+            border-radius: 15px;
+            padding: 0;
+            min-width: 300px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+        }
+
+        .custom-popup .leaflet-popup-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        .popup-content {
+            padding: 4px !important;
+        }
+
+        .popup-content h3 {
+            color: #1a73e8;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .popup-content p {
+            color: #5f6368;
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .popup-content .direction-button {
+            width: 100%;
+            justify-content: center;
         }
 
         .map-container {
@@ -375,7 +417,7 @@
                         <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta, 78410 Aubergenville, France</p>
                         <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
                         <div class="location-buttons">
-                            <button onclick="getDirections()" class="popup-button">
+                            <button onclick="getDirections()" class="direction-button">
                                 <i class="fas fa-directions"></i>
                                 <span>Y aller</span>
                             </button>
@@ -386,10 +428,10 @@
 
             <script>
                 // Configuration de la carte
-                const map = L.map('map').setView([48.9647, 1.8494], 15);
+                const map = L.map('map').setView([46.603354, 1.888334], 6); // Centré sur la France
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
+                    attribution: ' OpenStreetMap contributors'
                 }).addTo(map);
 
                 // Ajout du marqueur
@@ -399,14 +441,24 @@
                 const popupContent = `
                     <div class="popup-content">
                         <h3>Lav & Clean Aubergenville</h3>
-                        <p>Centre Commercial d'Acosta, 78410 Aubergenville, France</p>
-                        <button onclick="getDirections()" class="popup-button">
+                        <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta,<br>78410 Aubergenville, France</p>
+                        <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
+                        <button onclick="getDirections()" class="direction-button">
                             <i class="fas fa-directions"></i>
                             <span>Y aller</span>
                         </button>
                     </div>
                 `;
-                marker.bindPopup(popupContent);
+
+                // Configuration de la popup
+                const customOptions = {
+                    className: 'custom-popup',
+                    closeButton: true,
+                    autoClose: false,
+                    closeOnClick: false
+                };
+                
+                marker.bindPopup(popupContent, customOptions);
 
                 // Fonction pour obtenir l'itinéraire
                 function getDirections() {
