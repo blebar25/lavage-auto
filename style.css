@@ -7,6 +7,7 @@
     --white: #ffffff;
 }
 
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -86,6 +87,9 @@
 }
 
 /* Application des animations */
+
+
+
 .hero-content {
     animation: fadeInUp 1s ease-out;
 }
@@ -105,6 +109,7 @@
 .service-card {
     animation: fadeInUp 0.6s ease-out both;
 }
+
 
 .service-card:nth-child(1) { animation-delay: 0.1s; }
 .service-card:nth-child(2) { animation-delay: 0.2s; }
