@@ -30,6 +30,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
         }
 
         .location-card:hover {
@@ -207,7 +208,6 @@
         }
 
         .map-container {
-            height: 400px;
             margin-bottom: 2rem;
             border-radius: 15px;
             overflow: hidden;
@@ -311,6 +311,11 @@
         .leaflet-marker-icon {
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
         }
+        
+        .locations-flex-container {
+            display: flex;
+            gap: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -389,45 +394,119 @@
             <div class="container">
                 <h2>Nous trouver</h2>
                 
-                <!-- Carte -->
-                <div class="map-container" style="margin-bottom: 2rem;">
-                    <div id="map" style="width: 100%; height: 400px;"></div>
-                </div>
+                <div class="locations-flex-container">
+                    <!-- Carte -->
+                    <div class="map-container">
+                        <div id="map" style="width: 100%; height: 100%;"></div>
+                    </div>
 
-                <!-- Card de la laverie -->
-                <div class="location-card">
-                    <div class="location-carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f" alt="Laverie Aubergenville 1">
+                    <!-- Card de la laverie -->
+                    <div class="location-card">
+                        <div class="location-carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f" alt="Laverie Aubergenville 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5" alt="Laverie Aubergenville 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac" alt="Laverie Aubergenville 3">
+                                </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5" alt="Laverie Aubergenville 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac" alt="Laverie Aubergenville 3">
+                            <button class="carousel-control carousel-prev" onclick="moveCarousel(this, -1)">❮</button>
+                            <button class="carousel-control carousel-next" onclick="moveCarousel(this, 1)">❯</button>
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active"></div>
+                                <div class="carousel-indicator"></div>
+                                <div class="carousel-indicator"></div>
                             </div>
                         </div>
-                        <button class="carousel-control carousel-prev" onclick="moveCarousel(this, -1)">❮</button>
-                        <button class="carousel-control carousel-next" onclick="moveCarousel(this, 1)">❯</button>
-                        <div class="carousel-indicators">
-                            <div class="carousel-indicator active"></div>
-                            <div class="carousel-indicator"></div>
-                            <div class="carousel-indicator"></div>
+                        <div class="location-info">
+                            <h3>Aubergenville</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta, 78410 Aubergenville, France</p>
+                            <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
+                            <div class="location-buttons">
+                                <button onclick="getDirections()" class="direction-button">
+                                    <i class="fas fa-directions"></i>
+                                    <span>Y aller</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="location-info">
-                        <h3>Aubergenville</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta, 78410 Aubergenville, France</p>
-                        <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
-                        <div class="location-buttons">
+                </div>
+
+                <script>
+                    // Configuration de la carte
+                    const map = L.map('map').setView([46.603354, 1.888334], 6); // Centré sur la France
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: ' OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    // Ajout du marqueur
+                    const marker = L.marker([48.9647, 1.8494]).addTo(map);
+
+                    // Popup personnalisé pour le marqueur
+                    const popupContent = `
+                        <div class="popup-content">
+                            <h3>Lav & Clean Aubergenville</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta,<br>78410 Aubergenville, France</p>
+                            <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
                             <button onclick="getDirections()" class="direction-button">
                                 <i class="fas fa-directions"></i>
                                 <span>Y aller</span>
                             </button>
                         </div>
-                    </div>
-                </div>
+                    `;
+
+                    // Configuration de la popup
+                    const customOptions = {
+                        className: 'custom-popup',
+                        closeButton: true,
+                        autoClose: false,
+                        closeOnClick: false
+                    };
+                    
+                    marker.bindPopup(popupContent, customOptions);
+
+                    // Fonction pour obtenir l'itinéraire
+                    function getDirections() {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(position => {
+                                const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
+                                const url = `https://www.google.com/maps/dir/?api=1&origin=${position.coords.latitude},${position.coords.longitude}&destination=${destination}`;
+                                window.open(url, '_blank');
+                            }, error => {
+                                // Si l'utilisateur refuse la géolocalisation, on utilise simplement l'adresse de destination
+                                const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
+                                const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+                                window.open(url, '_blank');
+                            });
+                        } else {
+                            // Si la géolocalisation n'est pas supportée
+                            const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
+                            const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+                            window.open(url, '_blank');
+                        }
+                    }
+
+                    // Fonction pour le carrousel
+                    function moveCarousel(button, direction) {
+                        const carousel = button.closest('.location-carousel');
+                        const items = carousel.querySelectorAll('.carousel-item');
+                        const indicators = carousel.querySelectorAll('.carousel-indicator');
+                        let activeIndex = Array.from(items).findIndex(item => item.classList.contains('active'));
+                        
+                        items[activeIndex].classList.remove('active');
+                        indicators[activeIndex].classList.remove('active');
+                        
+                        activeIndex = (activeIndex + direction + items.length) % items.length;
+                        
+                        items[activeIndex].classList.add('active');
+                        indicators[activeIndex].classList.add('active');
+                    }
+                </script>
             </div>
 
             <script>
