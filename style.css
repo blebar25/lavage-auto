@@ -86,6 +86,18 @@
     to { transform: rotate(360deg); }
 }
 
+@keyframes zoomPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Application des animations */
 
 
@@ -680,8 +692,9 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: white;
+    width: 100%;
     z-index: 1000;
+    background: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -1700,6 +1713,7 @@ main {
     color: var(--primary-dark);
     margin-bottom: 1.5rem;
     font-weight: 600;
+    animation: zoomPulse 2s ease-in-out infinite;
 }
 
 .entrepreneurs .section-intro {
@@ -1931,4 +1945,9 @@ main {
     .locations-list {
         grid-template-columns: 1fr;
     }
+}
+
+#map {
+    position: relative;
+    z-index: 1;
 }
