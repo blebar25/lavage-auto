@@ -316,6 +316,41 @@
             display: flex;
             gap: 2rem;
         }
+
+        /* Ajout du style pour le modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -614,19 +649,24 @@
                 </div>
                 
                 <div class="cta-buttons">
-                    <a href="#contact" class="cta-button primary">
+                    <a href="mailto:contact@laveriexpert.com?subject=Discuter de votre projet" 
+                       class="cta-button primary">
                         <i class="fas fa-comments"></i>
                         Discuter de votre projet
                     </a>
-                    <a href="#" class="cta-button secondary">
+                    
+                    <a href="mailto:contact@laveriexpert.com?subject=En savoir plus" 
+                       class="cta-button secondary">
                         <i class="fas fa-info-circle"></i>
                         En savoir plus
                     </a>
-                    <a href="https://www.linkedin.com" target="_blank" class="cta-button linkedin">
+                
+                    <!-- <a href="https://www.linkedin.com" target="_blank" class="cta-button linkedin">
                         <i class="fab fa-linkedin"></i>
                         LinkedIn
-                    </a>
+                    </a> -->
                 </div>
+                
             </div>
         </section>
     </main>
@@ -644,6 +684,7 @@
                         <li><a href="#tarifs">Nos tarifs</a></li>
                         <li><a href="#locations">Nous trouver</a></li>
                         <li><a href="#entrepreneurs">Ouvrir une laverie</a></li>
+                        <li><a href="#" id="mentions-legales">Mentions légales</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -658,5 +699,49 @@
         </div>
     </footer>
 
+    <!-- Modal Mentions Légales -->
+    <div id="mentions-legales-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 style="padding-bottom: 20px;">Mentions Légales</h2>
+            <div class="modal-body">
+                <h3>1. Informations légales</h3>
+                <p style="padding-bottom: 20px;">Lav & Clean<br>
+                SIRET : XXX XXX XXX XXXXX<br>
+                Adresse : [Votre adresse]<br>
+                Email : contact@lavetclean.fr<br>
+                Téléphone : [Votre numéro]</p>
+
+                <h3>2. Hébergement</h3>
+                <p style="padding-bottom: 20px;">Ce site est hébergé par [Nom de l'hébergeur]<br>
+                Adresse : [Adresse de l'hébergeur]</p>
+
+                <h3>3. Propriété intellectuelle</h3>
+                <p style="padding-bottom: 20px;">L'ensemble du contenu de ce site (textes, images, vidéos) est protégé par le droit d'auteur. Toute reproduction sans autorisation préalable est interdite.</p>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Affichage du modal Mentions Légales
+        const mentionsLegalesLink = document.getElementById('mentions-legales');
+        const mentionsLegalesModal = document.getElementById('mentions-legales-modal');
+        const closeModal = document.querySelector('.close-modal');
+
+        mentionsLegalesLink.addEventListener('click', () => {
+            mentionsLegalesModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            mentionsLegalesModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === mentionsLegalesModal) {
+                mentionsLegalesModal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
