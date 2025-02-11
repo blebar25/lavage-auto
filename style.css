@@ -947,48 +947,44 @@ main {
 .carousel-item.active {
     opacity: 1;
     display: block;
+    z-index: 1;
 }
 
 .carousel-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .carousel-control {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.8);
     border: none;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    color: white;
-    transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.location-carousel:hover .carousel-control {
-    opacity: 1;
+    transition: background-color 0.3s ease;
 }
 
 .carousel-control:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 1);
 }
 
 .carousel-prev {
-    left: 20px;
+    left: 10px;
 }
 
 .carousel-next {
-    right: 20px;
+    right: 10px;
 }
 
 .carousel-indicators {

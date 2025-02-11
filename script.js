@@ -392,38 +392,94 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = carousel.querySelector('.carousel-prev');
         const nextBtn = carousel.querySelector('.carousel-next');
         let currentIndex = 0;
+        let isTransitioning = false;
+
+        // Précharger les images
+        const preloadImages = () => {
+            items.forEach(item => {
+                const img = item.querySelector('img');
+                if (img) {
+                    // Créer une nouvelle image pour préchargement
+                    const preloadImg = new Image();
+                    preloadImg.src = img.src;
+                    
+                    // Gérer les erreurs de chargement
+                    preloadImg.onerror = () => {
+                        console.error('Erreur de chargement pour:', img.src);
+                        img.style.display = 'none';
+                        const errorMsg = document.createElement('div');
+                        errorMsg.textContent = "Image non disponible";
+                        errorMsg.style.padding = "20px";
+                        errorMsg.style.textAlign = "center";
+                        img.parentNode.appendChild(errorMsg);
+                    };
+
+                    // Gérer le succès du chargement
+                    preloadImg.onload = () => {
+                        console.log('Image chargée avec succès:', img.src);
+                        img.style.opacity = "1";
+                    };
+                }
+            });
+        };
 
         function updateCarousel() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
             items.forEach((item, index) => {
                 if (index === currentIndex) {
+                    item.style.opacity = "0";
                     item.classList.add('active');
+                    setTimeout(() => {
+                        item.style.opacity = "1";
+                    }, 50);
                 } else {
                     item.classList.remove('active');
                 }
             });
+
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
         }
 
         if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 currentIndex = (currentIndex - 1 + items.length) % items.length;
                 updateCarousel();
             });
         }
 
         if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 currentIndex = (currentIndex + 1) % items.length;
                 updateCarousel();
             });
         }
 
-        // Initial display
+        // Initialiser le carrousel
+        preloadImages();
         updateCarousel();
 
         // Auto-advance every 5 seconds
-        setInterval(() => {
+        let autoAdvance = setInterval(() => {
             currentIndex = (currentIndex + 1) % items.length;
             updateCarousel();
         }, 5000);
+
+        // Pause auto-advance when hovering
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoAdvance);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            autoAdvance = setInterval(() => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateCarousel();
+            }, 5000);
+        });
     });
 });
