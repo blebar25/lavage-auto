@@ -315,32 +315,32 @@ document.querySelectorAll('.service-card').forEach(card => {
     observer.observe(card);
 });
 
-// Fonction pour obtenir le chemin de base correct
-function getBasePath() {
-    // Vérifie si nous sommes sur GitHub Pages
-    const isGitHubPages = window.location.hostname.includes('github.io');
-    // Récupère le nom du dépôt depuis l'URL si nous sommes sur GitHub Pages
-    const repoName = isGitHubPages ? window.location.pathname.split('/')[1] : '';
-    return isGitHubPages ? `/${repoName}` : '';
-}
+// Navigation mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
 
-// Fonction pour obtenir le chemin complet d'une image
-function getImagePath(imageName) {
-    return `${getBasePath()}/images/${imageName}`;
-}
-
-// Initialisation du carrousel avec les chemins d'images corrects
-function initCarousel() {
-    const items = document.querySelectorAll('.carousel-item img');
-    items.forEach(item => {
-        const imageName = item.src.split('/').pop(); // Obtient juste le nom du fichier
-        item.src = getImagePath(imageName);
+    mobileMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
     });
-}
+});
 
-// Appeler initCarousel quand le DOM est chargé
-document.addEventListener('DOMContentLoaded', () => {
-    initCarousel();
+// Animation des cartes de prix au scroll
+const cards = document.querySelectorAll('.price-card');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+cards.forEach(card => {
+    observer.observe(card);
 });
 
 // Fonction pour ouvrir Google Maps dans un nouvel onglet
