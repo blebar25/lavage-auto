@@ -928,8 +928,9 @@ main {
 }
 
 .carousel-inner {
-    height: 100%;
     position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .carousel-item {
