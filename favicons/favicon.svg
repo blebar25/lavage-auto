@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="512" height="512"><svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cercle de fond -->
+    <circle cx="256" cy="256" r="256" fill="#18233E"></circle>
+    
+    <!-- Machine à laver stylisée -->
+    <circle cx="256" cy="256" r="180" fill="none" stroke="#ffffff" stroke-width="24"></circle>
+    <circle cx="256" cy="256" r="140" fill="none" stroke="#ffffff" stroke-width="16"></circle>
+    
+    <!-- Hublot -->
+    <circle cx="256" cy="256" r="100" fill="#ffffff" opacity="0.2"></circle>
+    
+    <!-- Gouttes d'eau stylisées -->
+    <path d="M200 180 Q220 160 240 180 T280 180" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"></path>
+    <path d="M200 220 Q220 200 240 220 T280 220" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"></path>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>

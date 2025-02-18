@@ -3,7 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lav & Clean - Votre laverie automatique 7j/7</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Lav & Clean - Laverie Automatique Centre Commercial Acosta | Ouvert 7j/7</title>
+    <meta name="description" content="Laverie automatique moderne au Centre Commercial Acosta. Machines Electrolux, ouverte 7j/7 de 7h à 22h. Lavage rapide et économique pour vêtements, couettes, rideaux. Paiement CB, WiFi gratuit.">
+    <meta name="keywords" content="laverie Acosta, laverie centre commercial Acosta, laverie automatique, laverie libre-service, lavage couette, laverie 7j/7, laverie Aubergenville, machines Electrolux, laverie écologique, laverie sécurisée">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Lav & Clean - Laverie Automatique Centre Commercial Acosta">
+    <meta property="og:description" content="Laverie automatique moderne équipée de machines Electrolux. Ouverte 7j/7 de 7h à 22h. Idéale pour vêtements, couettes, rideaux.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lavetclean.fr">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Lav & Clean Aubergenville",
+        "image": "images/IMG_3103.jpg",
+        "description": "Laverie automatique moderne équipée de machines à laver et sèche-linge haut de gamme Electrolux. Ouverte 7j/7, de 7h à 22h.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Centre Commercial d'Acosta",
+            "addressLocality": "Aubergenville",
+            "postalCode": "78410",
+            "addressCountry": "FR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "48.9647",
+            "longitude": "1.8494"
+        },
+        "openingHours": "Mo-Su 07:00-22:00",
+        "priceRange": "€€",
+        "paymentAccepted": "Cash, Credit Card",
+        "amenityFeature": [
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "WiFi",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Paiement par carte bancaire",
+                "value": true
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lavetclean.fr" />
+    
+    <!-- Autres meta tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Lav & Clean">
+    <meta name="revisit-after" content="7 days">
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -325,10 +382,31 @@
             text-decoration: none;
             cursor: pointer;
         }
+        
+        .coming-soon-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff9900;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .direction-button.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .popup-content.coming-soon {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header" role="banner">
         <div class="top-bar">
             <div class="help-section">
                 <p>Besoin d'aide ?</p>
@@ -336,7 +414,7 @@
                 <a href="mailto:lelavoir26@gmail.com"><i class="fas fa-envelope"></i>lelavoir26@gmail.com</a>
             </div>
         </div>
-        <nav class="navbar">
+        <nav class="navbar" role="navigation">
             <div class="logo">
                 <h1>Lav & Clean</h1>
             </div>
@@ -351,8 +429,8 @@
         </nav>
     </header>
 
-    <main>
-        <section id="accueil" class="hero">
+    <main role="main">
+        <section id="accueil" class="hero" aria-label="En-tête principal">
             <div class="hero-content">
                 <h1>Lav & Clean</h1>
                 <p class="baseline">Votre laverie automatique, proche de chez vous, ouverte de 7H00 à 22H00, 7J/7</p>
@@ -360,7 +438,7 @@
             </div>
         </section>
 
-        <section id="tarifs" class="pricing">
+        <section id="tarifs" class="pricing" aria-label="Nos tarifs">
             <div class="container">
                 <h2>Nos tarifs</h2>
                 <p class="section-description">Profitez de machines à laver rapides et super essorantes et de séchoirs Electrolux,<br>adaptés à vos besoins et proposés à des prix compétitifs</p>
@@ -399,19 +477,20 @@
             </div>
         </section>
 
-        <section id="locations" class="locations">
+        <section id="locations" class="locations" aria-label="Nos emplacements">
             <div class="container">
                 <h2>Nous trouver</h2>
                 
-                <div class="locations-flex-container">
                     <!-- Carte -->
-                    <div class="map-container">
-                        <div id="map" style="width: 100%; height: 100%;"></div>
+                    <div class="map-container" aria-label="Carte des laveries">
+                        <div id="map" role="application" aria-label="Carte interactive des laveries"></div>
                     </div>
+
+                    <div class="locations-flex-container">
 
                     <!-- Card de la laverie -->
                     <div class="location-card">
-                        <div class="simple-carousel">
+                        <div class="simple-carousel" aria-label="Photos de la laverie d'Aubergenville">
                             <div class="carousel-container">
                                 <img src="images/IMG_3103.jpg" alt="Laverie Aubergenville 1" class="carousel-image active">
                                 <img src="images/IMG_3104.jpg" alt="Laverie Aubergenville 2" class="carousel-image">
@@ -425,8 +504,8 @@
                         </div>
                         <div class="location-info">
                             <h3>Aubergenville</h3>
-                            <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta, 78410 Aubergenville, France</p>
-                            <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
+                            <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Centre Commercial d'Acosta,<br>78410 Aubergenville, France</p>
+                            <p><i class="far fa-clock" aria-hidden="true"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
                             <div class="location-buttons">
                                 <button onclick="getDirections()" class="direction-button">
                                     <i class="fas fa-directions"></i>
@@ -435,66 +514,109 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Deuxième card de laverie -->
+                    <div class="location-card coming-soon">
+                        <div class="coming-soon-badge">Prochainement</div>
+                        <div class="simple-carousel" aria-label="Photos de la laverie de Meaux">
+                            <div class="carousel-container">
+                                <!-- Images génériques de laverie -->
+                                <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f" alt="Laverie générique 1" class="carousel-image active">
+                                <img src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5" alt="Laverie générique 2" class="carousel-image">
+                                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac" alt="Laverie générique 3" class="carousel-image">
+                            </div>
+                            <button class="carousel-button prev" onclick="prevImage(1)">❮</button>
+                            <button class="carousel-button next" onclick="nextImage(1)">❯</button>
+                        </div>
+                        <div class="location-info">
+                            <h3>Meaux</h3>
+                            <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Nouvelle adresse, 77100 <br/> Meaux, France</p>
+                            <p><i class="far fa-clock" aria-hidden="true"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
+                            <div class="location-buttons">
+                                <button onclick="getDirections()" class="direction-button">
+                                    <i class="fas fa-directions"></i>
+                                    <span>Y aller</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
 
                 <script>
                     // Configuration de la carte
-                    const map = L.map('map').setView([46.603354, 1.888334], 6); // Centré sur la France
+                    const map = L.map('map').setView([48.9647, 1.8494], 9); // Vue centrée entre les deux laveries
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: ' OpenStreetMap contributors'
                     }).addTo(map);
 
-                    // Ajout du marqueur
-                    const marker = L.marker([48.9647, 1.8494]).addTo(map);
+                    // Ajout des marqueurs
+                    const locations = [
+                        {
+                            coords: [48.9647, 1.8494],
+                            name: 'Lav & Clean Aubergenville',
+                            address: 'Centre Commercial d\'Acosta,<br>78410 Aubergenville, France',
+                            hours: 'Ouvert 7j/7 de 7h00 à 22h00',
+                            isComingSoon: false
+                        },
+                        {
+                            coords: [48.9571, 2.9077],
+                            name: 'Lav & Clean Meaux (Prochainement)',
+                            address: 'Nouvelle adresse à Meaux,<br>77100 Meaux, France',
+                            hours: 'Ouvert 7j/7 de 7h00 à 22h00',
+                            isComingSoon: true
+                        }
+                    ];
 
-                    // Popup personnalisé pour le marqueur
-                    const popupContent = `
-                        <div class="popup-content">
-                            <h3>Lav & Clean Aubergenville</h3>
-                            <p><i class="fas fa-map-marker-alt"></i> Centre Commercial d'Acosta,<br>78410 Aubergenville, France</p>
-                            <p><i class="far fa-clock"></i> Ouvert 7j/7 de 7h00 à 22h00</p>
-                            <button onclick="getDirections()" class="direction-button">
-                                <i class="fas fa-directions"></i>
-                                <span>Y aller</span>
-                            </button>
-                        </div>
-                    `;
-
-                    // Configuration de la popup
-                    const customOptions = {
-                        className: 'custom-popup',
-                        closeButton: true,
-                        autoClose: false,
-                        closeOnClick: false
-                    };
+                    // Ajout des marqueurs sur la carte
+                    const bounds = L.latLngBounds();
                     
-                    marker.bindPopup(popupContent, customOptions);
+                    locations.forEach(location => {
+                        const marker = L.marker(location.coords).addTo(map);
+                        bounds.extend(location.coords);
+                        
+                        const popupContent = `
+                            <div class="popup-content ${location.isComingSoon ? 'coming-soon' : ''}">
+                                <h3>${location.name}</h3>
+                                <p><i class="fas fa-map-marker-alt"></i> ${location.address}</p>
+                                <p><i class="far fa-clock"></i> ${location.hours}</p>
+                                ${!location.isComingSoon ? `
+                                    <button onclick="getDirections()" class="direction-button">
+                                        <i class="fas fa-directions"></i>
+                                        <span>Y aller</span>
+                                    </button>
+                                ` : `
+                                    <button class="direction-button disabled" disabled>
+                                        <i class="fas fa-directions"></i>
+                                        <span>Prochainement</span>
+                                    </button>
+                                `}
+                            </div>
+                        `;
+
+                        const customOptions = {
+                            className: 'custom-popup',
+                            closeButton: true,
+                            autoClose: false,
+                            closeOnClick: false
+                        };
+                        
+                        marker.bindPopup(popupContent, customOptions);
+                    });
+
+                    // Ajuster la vue de la carte pour montrer tous les marqueurs
+                    map.fitBounds(bounds, { padding: [50, 50] });
 
                     // Fonction pour obtenir l'itinéraire
-                    function getDirections() {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(position => {
-                                const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
-                                const url = `https://www.google.com/maps/dir/?api=1&origin=${position.coords.latitude},${position.coords.longitude}&destination=${destination}`;
-                                window.open(url, '_blank');
-                            }, error => {
-                                // Si l'utilisateur refuse la géolocalisation, on utilise simplement l'adresse de destination
-                                const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
-                                const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-                                window.open(url, '_blank');
-                            });
-                        } else {
-                            // Si la géolocalisation n'est pas supportée
-                            const destination = encodeURIComponent("Centre Commercial d'Acosta, 78410 Aubergenville, France");
-                            const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-                            window.open(url, '_blank');
-                        }
+                    function getDirections(lat, lng, address) {
+                        const googleMapsUrl = "https://www.google.com/maps/place/Centre+Commercial+d'Acosta/@48.95438,1.86043,17z/data=!3m1!4b1!4m6!3m5!1s0x47e693dd150af583:0x59523aa084437401!8m2!3d48.95438!4d1.86043!16s%2Fg%2F11mjvjgc5x?entry=ttu";
+                        window.open(googleMapsUrl, '_blank');
                     }
 
                     // Fonction pour le carrousel
-                    function prevImage() {
-                        const carousel = document.querySelector('.simple-carousel');
+                    function prevImage(carouselIndex) {
+                        const carousel = document.querySelectorAll('.simple-carousel')[carouselIndex];
                         const images = carousel.querySelectorAll('.carousel-image');
                         let activeIndex = Array.from(images).findIndex(image => image.classList.contains('active'));
                         
@@ -505,8 +627,8 @@
                         images[activeIndex].classList.add('active');
                     }
 
-                    function nextImage() {
-                        const carousel = document.querySelector('.simple-carousel');
+                    function nextImage(carouselIndex) {
+                        const carousel = document.querySelectorAll('.simple-carousel')[carouselIndex];
                         const images = carousel.querySelectorAll('.carousel-image');
                         let activeIndex = Array.from(images).findIndex(image => image.classList.contains('active'));
                         
@@ -521,7 +643,7 @@
 
         </section>
 
-        <section id="entrepreneurs" class="entrepreneurs">
+        <section id="entrepreneurs" class="entrepreneurs" aria-label="Ouvrir une laverie">
             <div class="container">
                 <h2>Ouvrir votre propre laverie</h2>
                 <p class="section-intro">Investissez dans un secteur en pleine croissance avec un accompagnement personnalisé à chaque étape de votre projet.</p>
@@ -575,7 +697,7 @@
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">

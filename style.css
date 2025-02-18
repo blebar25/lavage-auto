@@ -274,7 +274,6 @@
 .find-nearest-button:hover {
     background: var(--secondary-color);
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Styles pour les adresses cliquables */
@@ -332,10 +331,13 @@
 }
 
 .map-container {
-    height: 510px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 1000px;
+    height: 400px;
+    margin: 0 auto 3rem;
+    border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .locations-list {
@@ -414,8 +416,212 @@
 }
 
 .locations {
+    background-color: #18233E;
+    padding: 0;
+    position: relative;
+}
+
+.locations .container {
+    max-width: 100%;
+    padding: 0;
+}
+
+.locations h2 {
+    text-align: center;
+    color: white;
+    padding: 2rem 0;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* Map Container */
+.map-container {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    z-index: 1;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Grid des locations */
+.locations-grid {
+    max-width: 1200px;
+    margin: -50px auto 3rem;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Cards */
+.location-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    position: relative;
+}
+
+.location-card.coming-soon {
+    opacity: 0.85;
+    filter: grayscale(100%);
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.location-info {
+    padding: 1.5rem;
+}
+
+.location-info h3 {
+    margin: 0 0 1rem 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.location-info p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+.location-info i {
+    color: var(--primary-color);
+    width: 20px;
+    margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .map-container {
+        height: 400px;
+    }
+    
+    .locations-grid {
+        grid-template-columns: 1fr;
+        margin-top: -30px;
+    }
+}
+
+.locations {
+    background-color: var(--dark-blue);
+    padding: 4rem 0;
+    position: relative;
+    color: white;
+}
+
+.locations h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.map-container {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 3rem;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 0;
+}
+
+.location-card {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.location-card .location-info {
+    padding: 1.5rem;
+    background: white;
+    color: var(--text-color);
+}
+
+.location-card .location-info h3 {
+    margin: 0 0 1rem 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.location-card .location-info p {
+    margin: 0.5rem 0;
+    line-height: 1.4;
+}
+
+.location-card .location-info i {
+    color: var(--primary-color);
+    width: 20px;
+    margin-right: 8px;
+}
+
+/* Style pour le badge Prochainement */
+.coming-soon-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* Style pour la card grisée */
+.location-card.coming-soon {
+    position: relative;
+    opacity: 0.85;
+    filter: grayscale(100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .map-container {
+        height: 400px;
+    }
+    
+    .locations-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+}
+
+.locations {
     background-color: var(--light-gray);
     padding: 5rem 0;
+    position: relative;
 }
 
 .locations .container {
@@ -455,51 +661,53 @@
 }
 
 .map-container {
-    height: 510px;
-    border-right: 1px solid var(--light-gray);
+    width: 100%;
+    margin-bottom: 3rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
-.locations-list {
-    padding: 2rem;
-    max-height: 700px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--secondary-color) var(--light-gray);
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 0;
 }
 
-.locations-list::-webkit-scrollbar {
-    width: 6px;
+.location-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.locations-list::-webkit-scrollbar-track {
-    background: var(--light-gray);
-    border-radius: 3px;
-}
-
-.locations-list::-webkit-scrollbar-thumb {
-    background-color: var(--secondary-color);
-    border-radius: 3px;
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .location {
     background: var(--white);
-    margin-bottom: 1.5rem;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    border: 1px solid var(--light-gray);
-}
-
-.location a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
     padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .location:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--light-gray);
 }
 
 .location h4 {
@@ -511,16 +719,33 @@
     gap: 0.5rem;
 }
 
-.location h4 i {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-}
-
 .location p {
     margin: 0;
     color: var(--text-color);
     font-size: 0.95rem;
-    padding-left: 1.7rem;
+    line-height: 1.4;
+}
+
+.location a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .locations-content {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        height: 400px;
+        border-right: none;
+        border-bottom: 1px solid var(--light-gray);
+    }
+
+    .locations-list {
+        max-height: 500px;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -1440,11 +1665,6 @@ main {
 }
 
 /* Locations Section */
-.locations {
-    padding: 4rem 0;
-    background: linear-gradient(to bottom, var(--light-bg) 0%, white 100%);
-}
-
 .locations-flex-container {
     display: flex;
     justify-content: center;
@@ -1455,11 +1675,12 @@ main {
 .map-container {
     flex: 0 0 400px;
     max-width: 510px;
+    position: relative;
+    z-index: 1;
 }
 
 .map-container #map {
     width: 100%;
-    height: 510px;
     border-radius: 15px 15px 0 0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -1471,6 +1692,8 @@ main {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    position: relative;
+    z-index: 0;
 }
 
 .location-carousel {
@@ -2081,4 +2304,191 @@ main {
 
 .next {
     right: 10px;
+}
+
+.location-card.coming-soon {
+    position: relative;
+    opacity: 0.8;
+    filter: grayscale(100%);
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajout du responsive pour la carte */
+@media (max-width: 1100px) {
+    .map-container {
+        width: 90%;
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        width: 95%;
+        height: 350px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .services-grid,
+    .locations-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content .baseline {
+        font-size: 1.2rem;
+    }
+
+    .map-container {
+        width: 90%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 540px;
+        padding: 0 1rem;
+    }
+
+    .hero {
+        padding: 4rem 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .services-grid,
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        width: 95%;
+        height: 350px;
+    }
+
+    .location-card {
+        margin: 0 1rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content .baseline {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+
+    .location-card {
+        margin: 0 0.5rem;
+    }
+
+    .simple-carousel {
+        height: 200px;
+    }
+
+    .footer {
+        padding: 2rem 0;
+    }
+}
+
+/* Navigation mobile */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.mobile-menu.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-menu .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-menu .nav-links a {
+    color: white;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: block;
+    }
 }
