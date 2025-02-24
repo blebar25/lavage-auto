@@ -421,18 +421,25 @@
                 <a href="mailto:lelavoir26@gmail.com"><i class="fas fa-envelope"></i>lelavoir26@gmail.com</a>
             </div>
         </div>
-        <nav class="navbar" role="navigation">
+        <nav class="navbar">
             <div class="logo">
                 <h1>Lav & Clean</h1>
+            </div>
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="mobile-menu">
+                <ul>
+                    <li><a href="#tarifs">Nos tarifs</a></li>
+                    <li><a href="#locations">Nous trouver</a></li>
+                    <li><a href="#entrepreneurs">Ouvrir une laverie</a></li>
+                </ul>
             </div>
             <div class="nav-links">
                 <a href="#tarifs">Nos tarifs</a>
                 <a href="#locations">Nous trouver</a>
                 <a href="#entrepreneurs">Ouvrir une laverie</a>
             </div>
-            <button class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </button>
         </nav>
     </header>
 
@@ -440,12 +447,13 @@
         <section id="accueil" class="hero" aria-label="En-tête principal">
             <div class="hero-content">
                 <h1>Lav & Clean</h1>
-                <p class="baseline">Votre laverie automatique, proche de chez vous, ouverte de 7H00 à 22H00, 7J/7</p>
+                <p class="baseline baseline-desktop">Votre laverie automatique, proche de chez vous, ouverte de 7H00 à 22H00, 7J/7</p>
+                <p class="baseline baseline-mobile">Votre laverie automatique, proche de chez vous,<br>ouverte de 7H00 à 22H00, 7J/7</p>
                 <a href="#tarifs" class="cta-button">Voir nos tarifs</a>
             </div>
         </section>
 
-        <section id="tarifs" class="pricing" aria-label="Nos tarifs">
+        <section id="tarifs" class="pricing pricing-center" aria-label="Nos tarifs">
             <div class="container">
                 <h2>Nos tarifs</h2>
                 <p class="section-description">Profitez de machines à laver rapides et super essorantes et de séchoirs Electrolux,<br>adaptés à vos besoins et proposés à des prix compétitifs</p>
@@ -471,9 +479,7 @@
                         <p class="price">12€</p>
                         <p>Idéal pour laver sa couette, ses draps, son linge de maison etc.</p>
                     </div>
-                </div>
-                <div class="pricing-grid" style="margin-top: 0;">
-                    <div class="price-card" style="grid-column: 2;">
+                    <div class="price-card">
                         <i class="fas fa-wind"></i>
                         <h3>Séchoir</h3>
                         <p>10 minutes</p>
@@ -776,5 +782,7 @@
             }
         });
     </script>
+
+    <script src="script.js"></script>
 </body>
 </html>

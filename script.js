@@ -483,3 +483,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Hamburger Menu
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    let isMenuOpen = false;
+
+    if (!hamburger || !mobileMenu) {
+        console.error('Menu elements not found');
+        return;
+    }
+
+    hamburger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle('active');
+    });
+
+    // Fermer le menu en cliquant sur un lien
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('active');
+        });
+    });
+
+    // Fermer le menu en cliquant en dehors
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('active');
+        }
+    });
+});

@@ -597,6 +597,7 @@
     border-radius: 20px;
     font-weight: 600;
     z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Style pour la card grisée */
@@ -1078,70 +1079,160 @@ main {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(280px, 1fr));
     gap: 2rem;
-    margin: 2rem auto;
-    max-width: 1200px;
+    margin-top: 3rem;
+}
+
+@media (min-width: 993px) {
+    .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .pricing-grid .price-card:last-child {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pricing-grid .price-card:nth-child(4) {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 1200px) {
+    .pricing-center {
+        justify-self: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .price-card {
-    background: white;
-    border-radius: 8px;
+    background: var(--white);
+    border-radius: 10px;
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-.price-card.featured {
-    transform: scale(1.05);
-    border: 2px solid var(--primary-color);
-}
-
-.price-card:hover {
-    transform: translateY(-10px);
-}
-
-.price-card h3 {
+.price-card i {
+    font-size: 2.5rem;
     color: var(--primary-color);
-    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
-.price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
+.price-card h3 {
+    margin: 1rem 0;
+    color: var(--text-color);
 }
 
-.price-card ul {
-    list-style: none;
-    margin-bottom: 2rem;
+.price-card .price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 0;
 }
 
-.price-card ul li {
-    margin-bottom: 0.5rem;
+.price-card p {
+    color: var(--text-color);
+    margin: 0.5rem 0;
 }
 
-.button {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    background: var(--primary-color);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 500;
-    transition: background 0.3s ease;
-}
-
-.button:hover {
-    background: var(--secondary-color);
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
+    .pricing {
+        padding: 3rem 1rem;
+    }
+    
+    .pricing-grid {
+        gap: 1.5rem;
+        margin: 1.5rem auto;
+    }
+    
+    .price-card {
+        padding: 1.5rem;
+    }
+    
+    .price-card i {
+        font-size: 2rem;
+    }
+    
+    .price-card .price {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pricing {
+        padding: 2rem 1rem;
+    }
+    
+    .section-description br {
+        display: none;
+    }
+    
+    .pricing-grid {
+        gap: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .price-card {
+        padding: 1.25rem;
+    }
+    
+    .price-card i {
+        font-size: 1.75rem;
+    }
+    
+    .price-card .price {
+        font-size: 1.5rem;
+    }
+}
+
+/* Grille de prix par défaut */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* Positionnement spécifique pour les écrans entre 768px et 992px */
+@media (min-width: 768px) and (max-width: 992px) {
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .pricing-grid .price-card:nth-child(4) {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 767px) {
     .pricing-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -1664,6 +1755,24 @@ main {
     opacity: 0.8;
 }
 
+@media (min-width: 500px) and (max-width: 600px) {
+    .help-section {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 500px) {
+    .help-section {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .help-section {
+        font-size: 9px;
+    }
+}
+
 /* Locations Section */
 .locations-flex-container {
     display: flex;
@@ -2144,7 +2253,6 @@ main {
     }
 
     .cta-button {
-        width: 100%;
         justify-content: center;
     }
 }
@@ -2489,6 +2597,105 @@ main {
 
 @media (max-width: 992px) {
     .mobile-menu-btn {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1028px) {
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .features-grid .feature-card:last-child {
+        grid-column: 1 / -1;
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--primary-color);
+    z-index: 1001;
+    position: relative;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    transform: translateX(100%);
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+    right: 0;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 20px;
+}
+
+.mobile-menu ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu ul li a:hover {
+    color: var(--primary-color);
+}
+
+@media (max-width: 992px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .navbar {
+        position: relative;
+        padding: 1rem;
+    }
+}
+
+/* Styles pour la baseline responsive */
+.baseline-mobile {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .baseline-desktop {
+        display: none;
+    }
+    .baseline-mobile {
         display: block;
     }
 }
