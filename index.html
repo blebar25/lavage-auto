@@ -410,6 +410,50 @@
         .popup-content.coming-soon {
             opacity: 0.5;
         }
+        
+        .menu-button {
+            display: none;
+        }
+        
+        .dropdown-menu {
+            display: none;
+        }
+        
+        @media (max-width: 992px) {
+            .menu-button {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: block;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            
+            .dropdown-menu a {
+                display: block;
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+            
+            .dropdown-menu a:last-child {
+                border-bottom: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -421,21 +465,19 @@
                 <a href="mailto:lelavoir26@gmail.com"><i class="fas fa-envelope"></i>lelavoir26@gmail.com</a>
             </div>
         </div>
-        <nav class="navbar">
+        <nav>
             <div class="logo">
                 <h1>Lav & Clean</h1>
             </div>
-            <div class="hamburger-menu">
+            <button class="menu-button">
                 <i class="fas fa-bars"></i>
-            </div>
-            <div class="mobile-menu">
-                <ul>
-                    <li><a href="#tarifs">Nos tarifs</a></li>
-                    <li><a href="#locations">Nous trouver</a></li>
-                    <li><a href="#entrepreneurs">Ouvrir une laverie</a></li>
-                </ul>
-            </div>
+            </button>
             <div class="nav-links">
+                <a href="#tarifs">Nos tarifs</a>
+                <a href="#locations">Nous trouver</a>
+                <a href="#entrepreneurs">Ouvrir une laverie</a>
+            </div>
+            <div class="dropdown-menu">
                 <a href="#tarifs">Nos tarifs</a>
                 <a href="#locations">Nous trouver</a>
                 <a href="#entrepreneurs">Ouvrir une laverie</a>

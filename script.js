@@ -519,3 +519,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Gestion du menu mobile
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    hamburgerMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('show');
+        console.log('Menu clicked', mobileMenu.classList.contains('show')); // Pour le débogage
+    });
+
+    // Fermer le menu quand on clique sur un lien
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('show');
+        });
+    });
+});
+
+// Fermer le menu mobile quand on clique en dehors
+document.querySelector('.mobile-menu').addEventListener('click', (e) => {
+    if (e.target === document.querySelector('.mobile-menu')) {
+        document.querySelector('.mobile-menu').classList.remove('show');
+    }
+});
+
+// Gestion du menu déroulant
+document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.querySelector('.menu-button');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    // Au départ, le menu est caché
+    dropdownMenu.style.display = 'none';
+
+    menuButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Empêche la propagation du clic
+        // Bascule entre 'none' et 'block'
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Fermer le menu si on clique ailleurs sur la page
+    document.addEventListener('click', () => {
+        dropdownMenu.style.display = 'none';
+    });
+
+    // Empêcher la fermeture quand on clique sur le menu
+    dropdownMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+});
