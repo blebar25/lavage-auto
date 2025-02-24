@@ -13,109 +13,6 @@ const laundries = [
     { name: "Tourcoing", address: "45 Place de la Victoire, Tourcoing, 59200", lat: 50.7236, lng: 3.1590 }
 ];
 
-// Style personnalisé pour la carte
-const mapStyle = [
-    {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#e9e9e9"
-            },
-            {
-                "lightness": 17
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#f5f5f5"
-            },
-            {
-                "lightness": 20
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 17
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 29
-            },
-            {
-                "weight": 0.2
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 18
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 16
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#f5f5f5"
-            },
-            {
-                "lightness": 21
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#dedede"
-            },
-            {
-                "lightness": 21
-            }
-        ]
-    }
-];
-
 // Initialisation de la carte Google Maps
 function initMap() {
     // Centre de la France
@@ -125,7 +22,6 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 6,
         center: france,
-        styles: mapStyle,
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,
@@ -184,38 +80,12 @@ function initMap() {
         marker.addListener("mouseout", () => {
             marker.setIcon(markerIcon);
         });
-
-        // Lier le marqueur à l'élément de la liste
-        const locationElement = document.querySelector(`.location a[href*="${encodeURIComponent(laundry.address)}"]`);
-        if (locationElement) {
-            locationElement.addEventListener("mouseenter", () => {
-                marker.setIcon({
-                    ...markerIcon,
-                    fillColor: "#2980b9",
-                    scale: 12
-                });
-                infowindow.open(map, marker);
-            });
-
-            locationElement.addEventListener("mouseleave", () => {
-                marker.setIcon(markerIcon);
-                setTimeout(() => infowindow.close(), 1000);
-            });
-        }
     });
 }
 
-// Navigation mobile
+// Initialisation quand le DOM est chargé
 document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-
-    mobileMenu.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-
-    // Animation au scroll
+    // Animation des cartes au scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -224,348 +94,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.price-card, .location, .contact-form')
-        .forEach(el => observer.observe(el));
-});
+    // Observer les éléments
+    const elements = document.querySelectorAll('.price-card, .service-card');
+    if (elements.length > 0) {
+        elements.forEach(el => observer.observe(el));
+    }
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+    // Smooth scroll pour les liens d'ancrage
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
-});
 
-// Mobile Menu Toggle
-const mobileMenuButton = document.querySelector('.mobile-menu');
-const navLinks = document.querySelector('.nav-links');
-
-mobileMenuButton.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-});
-
-// Form Submission
-const bookingForm = document.querySelector('.booking-form');
-if (bookingForm) {
-    bookingForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Add your form submission logic here
-        alert('Merci pour votre réservation ! Nous vous contacterons rapidement pour confirmer.');
-        this.reset();
-    });
-}
-
-// Gestion du formulaire de contact
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Récupération des valeurs du formulaire
-        const formData = {
-            prenom: this.prenom.value,
-            nom: this.nom.value,
-            email: this.email.value,
-            telephone: this.telephone.value,
-            message: this.message.value
-        };
-
-        // Validation du numéro de téléphone (10 chiffres)
-        const phoneRegex = /^[0-9]{10}$/;
-        if (!phoneRegex.test(formData.telephone)) {
-            alert('Veuillez entrer un numéro de téléphone valide (10 chiffres)');
-            return;
-        }
-
-        // Simulation d'envoi du formulaire
-        console.log('Données du formulaire :', formData);
-        alert('Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.');
-        
-        // Réinitialisation du formulaire
-        this.reset();
-    });
-
-    // Validation en temps réel du numéro de téléphone
-    const telephoneInput = document.getElementById('telephone');
-    telephoneInput.addEventListener('input', function(e) {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-    });
-}
-
-// Scroll Animation for Services Cards
-const observerOptions = {
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.service-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'all 0.5s ease-out';
-    observer.observe(card);
-});
-
-// Navigation mobile
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-
-    mobileMenu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-});
-
-// Animation des cartes de prix au scroll
-const cards = document.querySelectorAll('.price-card');
-
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-        }
-    });
-}, {
-    threshold: 0.1
-});
-
-cards.forEach(card => {
-    observer.observe(card);
-});
-
-// Fonction pour ouvrir Google Maps dans un nouvel onglet
-function openGoogleMaps(address) {
-    const encodedAddress = encodeURIComponent(address);
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-    window.open(mapsUrl, '_blank');
-}
-
-// Ajouter les écouteurs d'événements aux adresses
-document.addEventListener('DOMContentLoaded', () => {
+    // Gestion des adresses cliquables
     const addresses = document.querySelectorAll('.location-address');
-    addresses.forEach(address => {
-        address.style.cursor = 'pointer';
-        address.addEventListener('click', () => {
-            openGoogleMaps(address.textContent);
-        });
-    });
-});
-
-// Animation du menu de navigation
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        navbar.classList.remove('scroll-up');
-        return;
-    }
-    
-    if (currentScroll > lastScroll && !navbar.classList.contains('scroll-down')) {
-        navbar.classList.remove('scroll-up');
-        navbar.classList.add('scroll-down');
-    } else if (currentScroll < lastScroll && navbar.classList.contains('scroll-down')) {
-        navbar.classList.remove('scroll-down');
-        navbar.classList.add('scroll-up');
-    }
-    lastScroll = currentScroll;
-});
-
-// Carousel functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const carousels = document.querySelectorAll('.location-carousel');
-    
-    carousels.forEach(carousel => {
-        const items = carousel.querySelectorAll('.carousel-item');
-        const prevBtn = carousel.querySelector('.carousel-prev');
-        const nextBtn = carousel.querySelector('.carousel-next');
-        let currentIndex = 0;
-        let isTransitioning = false;
-
-        // Précharger les images
-        const preloadImages = () => {
-            items.forEach(item => {
-                const img = item.querySelector('img');
-                if (img) {
-                    // Créer une nouvelle image pour préchargement
-                    const preloadImg = new Image();
-                    preloadImg.src = img.src;
-                    
-                    // Gérer les erreurs de chargement
-                    preloadImg.onerror = () => {
-                        console.error('Erreur de chargement pour:', img.src);
-                        img.style.display = 'none';
-                        const errorMsg = document.createElement('div');
-                        errorMsg.textContent = "Image non disponible";
-                        errorMsg.style.padding = "20px";
-                        errorMsg.style.textAlign = "center";
-                        img.parentNode.appendChild(errorMsg);
-                    };
-
-                    // Gérer le succès du chargement
-                    preloadImg.onload = () => {
-                        console.log('Image chargée avec succès:', img.src);
-                        img.style.opacity = "1";
-                    };
+    if (addresses.length > 0) {
+        addresses.forEach(address => {
+            address.style.cursor = 'pointer';
+            address.addEventListener('click', () => {
+                const addressText = address.textContent;
+                if (addressText) {
+                    const encodedAddress = encodeURIComponent(addressText);
+                    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                    window.open(mapsUrl, '_blank');
                 }
             });
-        };
-
-        function updateCarousel() {
-            if (isTransitioning) return;
-            isTransitioning = true;
-
-            items.forEach((item, index) => {
-                if (index === currentIndex) {
-                    item.style.opacity = "0";
-                    item.classList.add('active');
-                    setTimeout(() => {
-                        item.style.opacity = "1";
-                    }, 50);
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 500);
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                currentIndex = (currentIndex - 1 + items.length) % items.length;
-                updateCarousel();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                currentIndex = (currentIndex + 1) % items.length;
-                updateCarousel();
-            });
-        }
-
-        // Initialiser le carrousel
-        preloadImages();
-        updateCarousel();
-
-        // Auto-advance every 5 seconds
-        let autoAdvance = setInterval(() => {
-            currentIndex = (currentIndex + 1) % items.length;
-            updateCarousel();
-        }, 5000);
-
-        // Pause auto-advance when hovering
-        carousel.addEventListener('mouseenter', () => {
-            clearInterval(autoAdvance);
         });
-
-        carousel.addEventListener('mouseleave', () => {
-            autoAdvance = setInterval(() => {
-                currentIndex = (currentIndex + 1) % items.length;
-                updateCarousel();
-            }, 5000);
-        });
-    });
-});
-
-// Hamburger Menu
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.querySelector('.hamburger-menu');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    let isMenuOpen = false;
-
-    if (!hamburger || !mobileMenu) {
-        console.error('Menu elements not found');
-        return;
     }
-
-    hamburger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        isMenuOpen = !isMenuOpen;
-        mobileMenu.classList.toggle('active');
-    });
-
-    // Fermer le menu en cliquant sur un lien
-    const mobileLinks = document.querySelectorAll('.mobile-menu a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            isMenuOpen = false;
-            mobileMenu.classList.remove('active');
-        });
-    });
-
-    // Fermer le menu en cliquant en dehors
-    document.addEventListener('click', (e) => {
-        if (isMenuOpen && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-            isMenuOpen = false;
-            mobileMenu.classList.remove('active');
-        }
-    });
-});
-
-// Gestion du menu mobile
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    hamburgerMenu.addEventListener('click', () => {
-        mobileMenu.classList.toggle('show');
-        console.log('Menu clicked', mobileMenu.classList.contains('show')); // Pour le débogage
-    });
-
-    // Fermer le menu quand on clique sur un lien
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('show');
-        });
-    });
-});
-
-// Fermer le menu mobile quand on clique en dehors
-document.querySelector('.mobile-menu').addEventListener('click', (e) => {
-    if (e.target === document.querySelector('.mobile-menu')) {
-        document.querySelector('.mobile-menu').classList.remove('show');
-    }
-});
-
-// Gestion du menu déroulant
-document.addEventListener('DOMContentLoaded', () => {
-    const menuButton = document.querySelector('.menu-button');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-
-    // Au départ, le menu est caché
-    dropdownMenu.style.display = 'none';
-
-    menuButton.addEventListener('click', (e) => {
-        e.stopPropagation(); // Empêche la propagation du clic
-        // Bascule entre 'none' et 'block'
-        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Fermer le menu si on clique ailleurs sur la page
-    document.addEventListener('click', () => {
-        dropdownMenu.style.display = 'none';
-    });
-
-    // Empêcher la fermeture quand on clique sur le menu
-    dropdownMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
 });

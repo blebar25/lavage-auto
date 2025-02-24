@@ -432,27 +432,6 @@
             .nav-links {
                 display: none;
             }
-            
-            .dropdown-menu {
-                display: block;
-                position: absolute;
-                top: 60px;
-                right: 20px;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            }
-            
-            .dropdown-menu a {
-                display: block;
-                padding: 10px;
-                border-bottom: 1px solid #ccc;
-            }
-            
-            .dropdown-menu a:last-child {
-                border-bottom: none;
-            }
         }
     </style>
 </head>
@@ -471,17 +450,18 @@
             </div>
             <button class="menu-button">
                 <i class="fas fa-bars"></i>
+                <div class="dropdown-menu">
+                    <a href="#tarifs">Nos tarifs</a>
+                    <a href="#locations">Nous trouver</a>
+                    <a href="#entrepreneurs">Ouvrir une laverie</a>
+                </div>
             </button>
             <div class="nav-links">
                 <a href="#tarifs">Nos tarifs</a>
                 <a href="#locations">Nous trouver</a>
                 <a href="#entrepreneurs">Ouvrir une laverie</a>
             </div>
-            <div class="dropdown-menu">
-                <a href="#tarifs">Nos tarifs</a>
-                <a href="#locations">Nous trouver</a>
-                <a href="#entrepreneurs">Ouvrir une laverie</a>
-            </div>
+
         </nav>
     </header>
 
@@ -826,5 +806,6 @@
     </script>
 
     <script src="script.js"></script>
+    <script src="menu.js"></script>
 </body>
 </html>
